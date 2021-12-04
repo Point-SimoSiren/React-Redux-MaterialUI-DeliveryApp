@@ -1,0 +1,28 @@
+body {
+  margin-left: 7%;
+}
+.error {
+    color: red;
+    width: 700px;
+    background: darkorange;
+    font-size: 20px;
+    border-style: solid;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .success {
+    color: green;
+    width: 700px;
+    background: greenyellow;
+    font-size: 20px;
+    border-style: solid;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    margin-top: 80px;
+  }
