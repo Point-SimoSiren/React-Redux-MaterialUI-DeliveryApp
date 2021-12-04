@@ -45,6 +45,7 @@ const Items = () => {
 
         return (
             <>
+             <h2>Products</h2>
             {showAddForm && <ItemForm setShowAddForm={setShowAddForm} />}
        
              {currentUser && currentUser.admin === true &&  <Button style={ButtonStyle}
@@ -54,6 +55,7 @@ const Items = () => {
             <Table sx={{ minWidth: 400 }} size="small" aria-label="a dense table">
                 <TableHead>
                     <TableRow>
+                    <TableCell align="left"></TableCell>
                         <TableCell align="left">Name</TableCell>
                         <TableCell align="left">Package</TableCell>
                         <TableCell align="left">Price</TableCell>
@@ -65,6 +67,7 @@ const Items = () => {
                     {
                         items.map(i =>
                             <TableRow key={i.item_id}>
+                                 <TableCell><Button style={ButtonStyle}>Add to cart</Button></TableCell>
                                 <TableCell>{i.name}</TableCell>
                                 <TableCell>{i.package}</TableCell>
                                 <TableCell>{i.price}</TableCell>

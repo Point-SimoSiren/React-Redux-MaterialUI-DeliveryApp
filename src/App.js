@@ -7,6 +7,7 @@ import { positiveAction } from './reducers/positivityReducer'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, Grid } from '@material-ui/core'
 import styled from 'styled-components'
+import { padding } from '@mui/system'
 
 const Container = styled(Grid)`
     && {
@@ -64,8 +65,8 @@ const App = () => {
 
   else {
     return (
-      <Container style={{marginRight: '7%'}}>
-        <h1>Delivery service</h1> <h4 style={{marginLeft: '40%'}}>Logged in  {
+      <Container style={{marginRight: '7%', marginTop: '5%'}}>
+         <h4 style={{marginLeft: '40%'}}>Logged in  {
           currentUser.admin === true && " as administrator "
         } with username {currentUser.name}
 

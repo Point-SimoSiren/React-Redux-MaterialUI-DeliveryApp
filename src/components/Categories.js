@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { initCategoriesAction, removeAction } from '../reducers/categoryReducer'
+import { initItemsAction } from '../reducers/itemReducer'
 import { useDispatch, useSelector } from 'react-redux'
 import CategoryForm from './CategoryForm'
 import Table from '@mui/material/Table'
@@ -17,12 +18,16 @@ import CategItems from './CategItems'
 const Categories = () => {
 
     const [showAddForm, setShowAddForm] = useState(false)
-    const [catToShowItems, setCatToShowItems] = useState('')
+    const [catToShowItems, setCatToShowItems] = useState({})
 
     const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(initCategoriesAction())
+    }, [dispatch])
+
+    useEffect(() => {
+        dispatch(initItemsAction())
     }, [dispatch])
 
     const categories = useSelector(({ categories }) => {
@@ -44,40 +49,45 @@ const Categories = () => {
 if (categories.length > 0) {
     return (
         <>
+        <h2>Categories</h2>
         {showAddForm && <CategoryForm setShowAddForm={setShowAddForm} />}
      
         {currentUser && !showAddForm && currentUser.admin === true && <Button style={ButtonStyle}
         onClick={() => setShowAddForm(true)}><AddIcon />Add new category</Button>}
+
+        {catToShowItems !== 0 && <CategItems category={catToShowItems} />}
             
+            <br />
             
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 400 }} size="small" aria-label="a dense table">
-        <TableHead>
-          <TableRow>
-                <TableCell align="left">Name</TableCell>
-                <TableCell align="left">Description</TableCell>
-                        </TableRow>
-                </TableHead>
-                <TableBody>
-                    
-            {categories.map(c =>
-                    <TableRow key={c.category_id} onClick={setCatToShowItems(c.category_id)}>
-                            <TableCell align="left">{c.name}</TableCell>
-                            <TableCell align="left">{c.description}</TableCell>
+        <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 400 }} size="small" aria-label="a dense table">
+            <TableHead>
+            <TableRow>
+                    <TableCell align="left">Name</TableCell>
+                    <TableCell align="left">Description</TableCell>
+                            </TableRow>
+                    </TableHead>
+                    <TableBody>
                         
-                        {currentUser && currentUser.admin === true &&
-                        <TableCell align="left">
-                            <Button style={{ height: '28px', width: '60px' }}
-                                onClick={() => handleDeleteClick(c)}>Delete</Button>
-                        </TableCell>
-                        }
-                    </TableRow>
+                {categories.map(c =>
+                        <TableRow key={c.category_id} onClick={() => setCatToShowItems(c)}>
+                                <TableCell align="left">{c.name}</TableCell>
+                                <TableCell align="left">{c.description}</TableCell>
+                            
+                            {currentUser && currentUser.admin === true &&
+                            <TableCell align="left">
+                                <Button style={{ height: '28px', width: '60px' }}
+                                    onClick={() => handleDeleteClick(c)}>Delete</Button>
+                            </TableCell>
+                            }
+                        </TableRow>
                     
-                        )
-                    }
-                </TableBody>
-        </Table>
-    </TableContainer>
+                        
+                            )
+                        }
+                    </TableBody>
+            </Table>
+        </TableContainer>
 </>)
 }
 else {
