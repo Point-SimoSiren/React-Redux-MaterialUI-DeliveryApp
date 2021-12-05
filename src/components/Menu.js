@@ -135,9 +135,6 @@ const Menu = () => {
 
             <StyledAppBar>
                 <StyledToolBar>
-                    <Link style={LStyle} to="/">
-                        Home
-                </Link>
 
                     <Link style={LStyle} to="/categories">
                         Categories
@@ -146,6 +143,10 @@ const Menu = () => {
                     <Link style={LStyle} to="/products">
                         Products
                     </Link>
+
+                    <a style={LStyle} href="http://localhost:3100">
+                        Customer service
+                    </a>
 
                     {!currentUser &&
                         <>
