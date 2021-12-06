@@ -1,22 +1,22 @@
-import itemService from '../services/items'
-import { notificationAction, emptyAction } from '../reducers/notificationReducer'
-import { positiveAction, negativeAction } from '../reducers/positivityReducer'
+import { notificationAction, emptyAction } from './notificationReducer'
+import { positiveAction, negativeAction } from './positivityReducer'
 
-const itemReducer = (state = [], action) => {
-    let newState = [...state]
+const cartReducer = (state = [], action) => {
+    //let newState = [...state]
     switch (action.type) {
 
-        case 'INIT_ITEMS':
+        case 'INIT_CART':
             return action.payload
-        
 
-        case 'CREATE_ITEM':
-            return newState.concat(action.payload)
+        case 'ADD_CART':
+            return action.payload
 
+        default: return state
+
+        /*
         case 'REMOVE_ITEM':
             return action.payload.items.filter(i => i.item_id !== action.payload.id)
-        
-        default: return state
+        */
 
         /*case 'UPDATE':
             const id = action.payload.id
@@ -31,18 +31,41 @@ const itemReducer = (state = [], action) => {
 
 //------------------ACTION-CREATORS-------------------
 
-
-export const createAction = (token, object) => {
+export const initCartItemsAction = cartItems => {
     return async dispatch => {
-        const status = await itemService.create(object)
-        alert(status)
         dispatch({
-            type: 'CREATE_ITEM',
-            payload: object
+            type: 'INIT_CART',
+            payload: cartItems
         })
     }
 }
 
+
+export const addCartAction = (object) => {
+    return async dispatch => {
+        let cartJson = localStorage.getItem('cart')
+        
+        if (cartJson) {
+            let cart = JSON.parse(cart)
+            let newCart = cart.concat(object)
+            let newCartJson = JSON.stringify(newCart)
+            localStorage.setItem('cart', newCartJson)
+        }
+        else
+        {
+            let cart = []
+            var newCart = cart.concat(object)
+            var newCartJson = JSON.stringify(newCart)
+            localStorage.setItem('cart', newCartJson)
+        }
+        dispatch({
+            type: 'CREATE_ITEM',
+            payload: newCart
+        })
+    }
+}
+
+/*
 export const removeAction = (token, id, items) => {
     return async dispatch => {
         const deleted = await itemService.remove(id)
@@ -75,17 +98,6 @@ export const removeAction = (token, id, items) => {
     }
 
 
-export const initItemsAction = () => {
-    return async dispatch => {
-        const items = await itemService.getAll()
-        dispatch({
-            type: 'INIT_ITEMS',
-            payload: items
-        })
-    }
-}
-
-/*
 export const likeAction = (item) => {
     return dispatch => {
         itemService.update(item.id, item)
@@ -100,4 +112,4 @@ export const likeAction = (item) => {
 }
 */
 
-export default itemReducer
+export default cartReducer

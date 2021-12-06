@@ -5,6 +5,7 @@ import notificationReducer from './reducers/notificationReducer'
 import positivityReducer from './reducers/positivityReducer'
 import categoryReducer from './reducers/categoryReducer'
 import itemReducer from './reducers/itemReducer'
+import cartReducer from './reducers/cartReducer'
 import userReducer from './reducers/userReducer'
 import currentUserReducer from './reducers/currentUserReducer'
 
@@ -14,7 +15,8 @@ const reducer = combineReducers({
     categories: categoryReducer,
     items: itemReducer,
     currentUser: currentUserReducer,
-    users: userReducer
+    users: userReducer,
+    cartItems: cartReducer
 })
 
 const store = createStore(

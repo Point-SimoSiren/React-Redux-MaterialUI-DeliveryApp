@@ -2,12 +2,13 @@ import React, { useEffect } from 'react'
 import Notification from './components/Notification'
 import Menu from './components/Menu'
 import { setCurrentUserAction, logoutAction } from './reducers/currentUserReducer'
+import { initCartItemsAction } from './reducers/cartReducer'
 import { notificationAction, emptyAction } from './reducers/notificationReducer'
 import { positiveAction } from './reducers/positivityReducer'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, Grid } from '@material-ui/core'
 import styled from 'styled-components'
-import { padding } from '@mui/system'
+//import { padding } from '@mui/system'
 
 const Container = styled(Grid)`
     && {
@@ -21,10 +22,17 @@ const App = () => {
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedAppUser')
+    const cart = window.localStorage.getItem('cart')
     if (loggedUserJSON) {
       const currentUser = JSON.parse(loggedUserJSON)
       dispatch(setCurrentUserAction(currentUser))
       //categoriesService.setToken(currentUser.token)
+    }
+    if (cart) {
+      dispatch(initCartItemsAction(cart))
+    }
+    else {
+      dispatch(initCartItemsAction([{id: 1, name: "suprise gift"}]))
     }
   }, [dispatch])
 

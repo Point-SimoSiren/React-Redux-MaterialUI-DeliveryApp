@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { initItemsAction, removeAction } from '../reducers/itemReducer'
+import { addCartAction } from '../reducers/cartReducer'
 import { useDispatch, useSelector } from 'react-redux'
 import ItemForm from './ItemForm'
 import { Button } from '@material-ui/core'
@@ -38,6 +39,12 @@ const Items = () => {
         }
     }
 
+    const addToCart = object => {
+        if (window.confirm(`Adding ${object.name} to cart. Are you sure? `)) {
+            dispatch(addCartAction(object))
+        }
+    }
+
     if (!items) {
         return (<h3>Loading items...</h3>)
     }
@@ -67,7 +74,7 @@ const Items = () => {
                     {
                         items.map(i =>
                             <TableRow key={i.item_id}>
-                                 <TableCell><Button style={ButtonStyle}>Add to cart</Button></TableCell>
+                                 <TableCell><Button style={ButtonStyle} onClick={() => addToCart(i)}>Add to cart</Button></TableCell>
                                 <TableCell>{i.name}</TableCell>
                                 <TableCell>{i.package}</TableCell>
                                 <TableCell>{i.price}</TableCell>
