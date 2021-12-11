@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Notification from './components/Notification'
 import Menu from './components/Menu'
 import { setCurrentUserAction, logoutAction } from './reducers/currentUserReducer'
@@ -18,6 +18,7 @@ const Container = styled(Grid)`
 
 const App = () => {
 
+
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -33,7 +34,7 @@ const App = () => {
       dispatch(initCartItemsAction(cart))
     }
     if (!cartJSON) {
-      dispatch(initCartItemsAction([{id: 777, name: "suprise gift for buyer"}]))
+      dispatch(initCartItemsAction([{id: 1, name: "suprise gift"}]))
     }
   }, [dispatch])
 

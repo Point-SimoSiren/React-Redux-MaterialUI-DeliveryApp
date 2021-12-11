@@ -44,11 +44,13 @@ export const initCartItemsAction = (cartItems) => {
 
 export const addCartAction = (object) => {
     
-        const cartJSON = localStorage.getItem('cart')
+        var cartJSON = localStorage.getItem('cart')
 
-        let cart = JSON.parse(cartJSON)
-        let newCart = cart.concat(object)
-        let newCartJson = JSON.stringify(newCart)
+        var cart = JSON.parse(cartJSON)
+        if (cart) {
+        var newCart = cart.concat(object)
+        }
+        const newCartJson = JSON.stringify(newCart)
         localStorage.setItem('cart', newCartJson)
         
         return async dispatch => {

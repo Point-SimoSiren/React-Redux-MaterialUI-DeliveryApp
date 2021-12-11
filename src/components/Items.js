@@ -13,6 +13,7 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
+import Cart from './Cart'
 
 const Items = () => {
 
@@ -30,6 +31,10 @@ const Items = () => {
 
     const currentUser = useSelector(({ currentUser }) => {
         return currentUser
+    })
+
+    const showCart = useSelector(({ showCart }) => {
+        return showCart
     })
 
 
@@ -52,7 +57,9 @@ const Items = () => {
 
         return (
             <>
+
              <h2>Products</h2>
+
             {showAddForm && <ItemForm setShowAddForm={setShowAddForm} />}
        
              {currentUser && currentUser.admin === true &&  <Button style={ButtonStyle}
@@ -72,7 +79,7 @@ const Items = () => {
                 </TableHead>
                 <TableBody>
                     {
-                        items.map(i =>
+                        items && items.map(i =>
                             <TableRow key={i.item_id}>
                                  <TableCell><Button style={ButtonStyle} onClick={() => addToCart(i)}>Add to cart</Button></TableCell>
                                 <TableCell>{i.name}</TableCell>
