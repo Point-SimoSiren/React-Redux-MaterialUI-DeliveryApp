@@ -14,6 +14,7 @@ import { Button } from '@material-ui/core'
 import AddIcon from '@mui/icons-material/Add'
 import ButtonStyle from './StyledComponents/ButtonStyle'
 import CategItems from './CategItems'
+import Cart from './Cart'
 
 const Categories = () => {
 
@@ -38,6 +39,10 @@ const Categories = () => {
         return currentUser
     })
 
+    const showCart = useSelector(({ showCart }) => {
+        return showCart
+    })
+
     const handleDeleteClick = object => {
         
         if (window.confirm(`Removing ${object.name}. Are you sure? `)) {
@@ -49,7 +54,11 @@ const Categories = () => {
 if (categories.length > 0) {
     return (
         <>
+        
+        {showCart && <Cart />}
+
         <h2>Categories</h2>
+
         {showAddForm && <CategoryForm setShowAddForm={setShowAddForm} />}
      
         {currentUser && !showAddForm && currentUser.admin === true && <Button style={ButtonStyle}

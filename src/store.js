@@ -3,6 +3,7 @@ import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import notificationReducer from './reducers/notificationReducer'
 import positivityReducer from './reducers/positivityReducer'
+import showCartReducer from './reducers/showCartReducer'
 import categoryReducer from './reducers/categoryReducer'
 import itemReducer from './reducers/itemReducer'
 import cartReducer from './reducers/cartReducer'
@@ -16,7 +17,8 @@ const reducer = combineReducers({
     items: itemReducer,
     currentUser: currentUserReducer,
     users: userReducer,
-    cartItems: cartReducer
+    cartItems: cartReducer,
+    showCart: showCartReducer
 })
 
 const store = createStore(

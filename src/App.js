@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Notification from './components/Notification'
 import Menu from './components/Menu'
 import { setCurrentUserAction, logoutAction } from './reducers/currentUserReducer'
@@ -18,21 +18,26 @@ const Container = styled(Grid)`
 
 const App = () => {
 
+
   const dispatch = useDispatch()
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedAppUser')
-    const cart = window.localStorage.getItem('cart')
+    const cartJSON = window.localStorage.getItem('cart')
     if (loggedUserJSON) {
       const currentUser = JSON.parse(loggedUserJSON)
       dispatch(setCurrentUserAction(currentUser))
       //categoriesService.setToken(currentUser.token)
     }
-    if (cart) {
+    if (cartJSON) {
+      const cart = JSON.parse(cartJSON)
       dispatch(initCartItemsAction(cart))
     }
-    else {
-      dispatch(initCartItemsAction([{id: 1, name: "suprise gift"}]))
+    if (!cartJSON) {
+      let initialCart = []
+      let json = JSON.stringify(initialCart)
+      localStorage.setItem('cart', json)
+      dispatch(initCartItemsAction(initialCart))
     }
   }, [dispatch])
 

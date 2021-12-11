@@ -5,6 +5,7 @@ import usersService from '../services/users'
 import UserDetails from './UserDetails'
 import { Button } from '@material-ui/core'
 import ButtonStyle from './StyledComponents/ButtonStyle'
+import Cart from './Cart'
 
 const Users = () => {
 

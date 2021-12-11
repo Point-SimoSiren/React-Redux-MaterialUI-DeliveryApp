@@ -1,11 +1,13 @@
 import React from 'react'
 import Categories from './Categories'
 import Items from './Items'
-import { useSelector } from 'react-redux'
+import Cart from './Cart'
+import { useSelector, useDispatch } from 'react-redux'
+import { showCartAction, hideCartAction } from '../reducers/showCartReducer'
 import '../index.css'
 import Users from './Users'
-import Homepage from './Homepage'
-import styled from 'styled-components';
+import MyOrders from './MyOrders'
+import styled from 'styled-components'
 import {
     Switch,
     Route,
@@ -117,6 +119,12 @@ const Menu = () => {
         }
     }
 
+    const dispatch = useDispatch()
+
+    const showCart = useSelector(({ showCart }) => {
+        return showCart
+    })
+
     const categories = useSelector(({ categories }) => {
         return categories
     })
@@ -128,6 +136,14 @@ const Menu = () => {
     const currentUser = useSelector(({ currentUser }) => {
         return currentUser
     })
+
+    // Event handlers for showing cart
+    const showShoppingCart = () => {
+        dispatch(showCartAction())
+    }
+    const hideShoppingCart = () => {
+        dispatch(hideCartAction())
+    }
 
 
     return (
@@ -160,8 +176,14 @@ const Menu = () => {
                         <Link style={LStyle} to="/my-orders">My-orders</Link>
                     }
 
-                    {currentUser &&
-                        <Link style={LStyle} to="/cart">Cart</Link>
+                    {currentUser && !showCart &&
+                     <p style={LStyle} onClick={() =>  showShoppingCart()}>
+                     Cart</p>
+                    }
+
+                    {currentUser && showCart &&
+                     <p style={LStyle} onClick={() => hideShoppingCart()}>
+                     Hide Cart</p>
                     }
 
                     {currentUser && currentUser.admin === true &&
@@ -185,8 +207,8 @@ const Menu = () => {
                 <Route path="/products">
                     <Items items={items} />
                 </Route>
-                <Route path="/orders">
-                    <Categories categories={categories} />
+                <Route path="/my-orders">
+                    <MyOrders />
                 </Route>
                 <Route path="/cart">
                     <Categories categories={categories} />
@@ -195,9 +217,6 @@ const Menu = () => {
                     <Route path="/users">
                         <Users />
                     </Route>}
-                    <Route path="/">
-                    <Homepage />
-                </Route>
 
             </Switch>
 
