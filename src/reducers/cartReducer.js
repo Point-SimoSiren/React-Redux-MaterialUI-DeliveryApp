@@ -31,7 +31,8 @@ const cartReducer = (state = [], action) => {
 
 //------------------ACTION-CREATORS-------------------
 
-export const initCartItemsAction = cartItems => {
+export const initCartItemsAction = (cartItems) => {
+  
     return async dispatch => {
         dispatch({
             type: 'INIT_CART',
@@ -42,22 +43,15 @@ export const initCartItemsAction = cartItems => {
 
 
 export const addCartAction = (object) => {
-    return async dispatch => {
-        let cartJson = localStorage.getItem('cart')
+    
+        const cartJSON = localStorage.getItem('cart')
+
+        let cart = JSON.parse(cartJSON)
+        let newCart = cart.concat(object)
+        let newCartJson = JSON.stringify(newCart)
+        localStorage.setItem('cart', newCartJson)
         
-        if (cartJson) {
-            let cart = JSON.parse(cart)
-            let newCart = cart.concat(object)
-            let newCartJson = JSON.stringify(newCart)
-            localStorage.setItem('cart', newCartJson)
-        }
-        else
-        {
-            let cart = []
-            var newCart = cart.concat(object)
-            var newCartJson = JSON.stringify(newCart)
-            localStorage.setItem('cart', newCartJson)
-        }
+        return async dispatch => {
         dispatch({
             type: 'CREATE_ITEM',
             payload: newCart
