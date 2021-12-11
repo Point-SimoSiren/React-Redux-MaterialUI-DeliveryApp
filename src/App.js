@@ -34,7 +34,10 @@ const App = () => {
       dispatch(initCartItemsAction(cart))
     }
     if (!cartJSON) {
-      dispatch(initCartItemsAction([{id: 1, name: "suprise gift"}]))
+      let initialCart = []
+      let json = JSON.stringify(initialCart)
+      localStorage.setItem('cart', json)
+      dispatch(initCartItemsAction(initialCart))
     }
   }, [dispatch])
 

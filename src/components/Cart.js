@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import './Cart.css'
 import { useDispatch, useSelector } from 'react-redux'
 import Table from '@mui/material/Table'
@@ -11,10 +11,19 @@ import Paper from '@mui/material/Paper'
 import { Button } from '@material-ui/core'
 import AddIcon from '@mui/icons-material/Add'
 import ButtonStyle from './StyledComponents/ButtonStyle'
+import { initCartItemsAction } from '../reducers/cartReducer'
 
 const Cart = () => {
 
     const dispatch = useDispatch()
+
+    const [x, refresh] = useState(false)
+
+    useEffect(() => {
+        const cartJSON = window.localStorage.getItem('cart')
+        const cart = JSON.parse(cartJSON)
+        dispatch(initCartItemsAction(cart))
+    }, [x])
 
     const cartItems = useSelector(({ cartItems }) => {
         return cartItems
@@ -37,7 +46,7 @@ if (cartItems.length > 0) {
     return (
         <div id="cart">
         <h2>Cart</h2>
-            
+            <button onClick={() => refresh(!x)}>Refresh cart</button>
         <TableContainer component={Paper}>
         <Table sx={{ minWidth: 80 }} size="small" aria-label="a dense table">
             <TableHead>
@@ -70,7 +79,12 @@ if (cartItems.length > 0) {
 </div>)
 }
 else {
-    return(<p>Cart is empty</p>)
+    return(
+        <div id="cart">
+                <h2>Cart</h2>
+                <button onClick={() => refresh(!x)}>Refresh cart</button>
+                <p>Cart is empty</p>
+        </div>)
     }
 }
 

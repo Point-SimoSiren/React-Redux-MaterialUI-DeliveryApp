@@ -57,7 +57,7 @@ const Items = () => {
 
         return (
             <>
-
+                 {showCart && <Cart />}
              <h2>Products</h2>
 
             {showAddForm && <ItemForm setShowAddForm={setShowAddForm} />}
@@ -79,7 +79,7 @@ const Items = () => {
                 </TableHead>
                 <TableBody>
                     {
-                        items && items.map(i =>
+                        items.map(i =>
                             <TableRow key={i.item_id}>
                                  <TableCell><Button style={ButtonStyle} onClick={() => addToCart(i)}>Add to cart</Button></TableCell>
                                 <TableCell>{i.name}</TableCell>

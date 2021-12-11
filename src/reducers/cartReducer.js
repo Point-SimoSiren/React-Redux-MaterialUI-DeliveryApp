@@ -47,9 +47,9 @@ export const addCartAction = (object) => {
         var cartJSON = localStorage.getItem('cart')
 
         var cart = JSON.parse(cartJSON)
-        if (cart) {
+        
         var newCart = cart.concat(object)
-        }
+        
         const newCartJson = JSON.stringify(newCart)
         localStorage.setItem('cart', newCartJson)
         
