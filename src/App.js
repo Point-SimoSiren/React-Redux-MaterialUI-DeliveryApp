@@ -18,7 +18,6 @@ const Container = styled(Grid)`
 
 const App = () => {
 
-
   const dispatch = useDispatch()
 
   useEffect(() => {

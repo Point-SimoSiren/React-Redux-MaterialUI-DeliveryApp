@@ -1,0 +1,18 @@
+.btn-pay {background-image: linear-gradient(to right, #0d6122 0%, #0d6122  51%, #5df383  100%)}
+.btn-pay {
+   
+   padding: 6px 12px;
+   text-align: center;
+   transition: 0.5s;
+   background-size: 200% auto;
+   color: white;            
+   box-shadow: 0 0 20px #eee;
+   border-radius: 10px;
+   display: block;
+ }
+
+ .btn-pay:hover {
+   background-position: right center;
+   color: black;
+   text-decoration: none;
+ }
