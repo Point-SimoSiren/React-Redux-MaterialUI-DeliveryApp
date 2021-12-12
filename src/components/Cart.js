@@ -12,6 +12,7 @@ import { Button } from '@material-ui/core'
 import AddIcon from '@mui/icons-material/Add'
 import ButtonStyle from './StyledComponents/ButtonStyle'
 import { initCartItemsAction } from '../reducers/cartReducer'
+import { createAction } from '../reducers/myOrdersReducer'
 
 const Cart = () => {
 
@@ -20,7 +21,7 @@ const Cart = () => {
     const [x, refresh] = useState(false)
 
     useEffect(() => {
-        const cartJSON = window.localStorage.getItem('cart')
+        const cartJSON = localStorage.getItem('cart')
         const cart = JSON.parse(cartJSON)
         dispatch(initCartItemsAction(cart))
     }, [x])
@@ -41,6 +42,20 @@ const Cart = () => {
         }
     }
     */
+
+   const placeOrder = () => {
+        let newOrder = {
+            user_id: currentUser.user_id,
+            paid: false,
+            delivered: false,
+            notes: "testing",
+            totalPrice: 0
+        }
+        localStorage.setItem('cart', [])
+        dispatch(initCartItemsAction([]))
+        dispatch(createAction(currentUser.token, newOrder))
+   }
+
 
 if (cartItems.length > 0) {
     return (
@@ -76,6 +91,8 @@ if (cartItems.length > 0) {
                     </TableBody>
             </Table>
         </TableContainer>
+
+        <Button style={ButtonStyle} onClick={() => placeOrder()}>Place order</Button>
 </div>)
 }
 else {

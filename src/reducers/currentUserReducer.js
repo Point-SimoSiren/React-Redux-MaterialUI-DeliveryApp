@@ -4,10 +4,12 @@ const currentUserReducer = (state = null, action) => {
 
         case 'SETCURRENT':
             return action.payload
-        default: return state
+        
 
         case 'CLEAR':
             return null
+            
+        default: return state
     }
 }
 
